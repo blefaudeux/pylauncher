@@ -1,0 +1,13 @@
+[
+    {
+        "command": "mv ${filepath} ${filepath}.moved",
+        "input_extension": ".tet"
+    },
+    {
+        "command": "mkdir blah"
+    },
+    {
+        "command": "echo ${filepath}",
+        "input_extension": ".moved"
+    }
+]
