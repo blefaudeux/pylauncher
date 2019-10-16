@@ -7,7 +7,11 @@
         "command": "mkdir blah"
     },
     {
-        "command": "echo ${filepath}",
+        "command": "mv ${filepath} blah/${filename}.displaced",
         "input_extension": ".moved"
+    },
+    {
+        "command": "echo ${filepath}",
+        "input_extension": ".displaced"
     }
 ]

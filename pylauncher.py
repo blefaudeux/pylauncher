@@ -10,6 +10,10 @@ _DEFAULT_CONFIG = [{"command": "echo", "output_extension": ""}]
 _KEYS = ["command", "input_extension", "output_extension"]
 _SUBS = ["${filename}", "${filepath}"]
 
+# Ideas for new options:
+# "recursive" - go through the subfolders
+# "parallel" - run the command on all files in parallel
+
 
 def get_files(filepath, extension):
     pass
@@ -40,11 +44,11 @@ def substitute(command: List[str], file: Path) -> List[str]:
     """
 
     # Replace all ${filename} by the corresponding value
-    command = list(map(lambda x: str(file.stem) if x == "${filename}" else x, command))
+    command = list(map(lambda x: x.replace("${filename}", str(file.stem)), command))
 
     # Replace all ${filepath} by the corresponding value
     command = list(
-        map(lambda x: str(file.resolve()) if x == "${filepath}" else x, command)
+        map(lambda x: x.replace("${filepath}", str(file.resolve())), command)
     )
 
     return command
@@ -87,8 +91,6 @@ def process(args):
         for f in file_list:
             # Substitute eventual filename in the command
             _command = substitute(command, f)
-
-            print(_command)
 
             # Run the command.
             # TODO: @lefaudeux Catch possible errors from there
